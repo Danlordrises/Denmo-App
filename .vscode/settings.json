@@ -1,6 +1,6 @@
 {
   "deno.enable": true,
+  "deno.path": "/home/danlordrises/.deno/bin/deno",
   "deno.lint": true,
-  "deno.unstable": true,
-  "deno.path": "/home/danlordrises/.deno/bin/deno"
+  "deno.unstable": true
 }
