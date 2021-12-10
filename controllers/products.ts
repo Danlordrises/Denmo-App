@@ -18,10 +18,11 @@ const addProduct = async ({ request, response }: {request: any, response: any })
         try {
         await client.connect()
          
-        const result = await client.queryArray("INSERT INTO products(name, description, price) VALUES($1,$2,$3)", 
+        const result = await client.queryArray("INSERT INTO products(name, description, price, image) VALUES($1,$2,$3,$4)", 
         product.name, 
         product.description,
-        product.price)
+        product.price,
+        product.image)
 
         response.status = 201
         response.body = {
@@ -46,6 +47,36 @@ const getProducts = async ({ response }:{ response: any }) => {
         await client.connect()
 
         const result = await client.queryObject("SELECT * FROM products")
+        console.log(result.rows)
+        // const products = [];
+        let products;
+        if (!result.rows.length){
+            products = 'no products yet'
+        }
+
+        products = result.rows.map(el => {
+            return el
+        });
+        response.status = 201
+        response.body = {
+            success: true,
+            data: products
+        }
+    } catch (err) {
+            response.status = 500
+            response.body = {
+                success: false,
+                msg: err.toString()
+            }
+        } finally {
+            await client.end()
+    }  
+}  
+const getCartProducts = async ({ response }:{ response: any }) => {
+    try {
+        await client.connect()
+
+        const result = await client.queryObject(`SELECT * FROM products WHERE incart = '${true}'`)
         console.log(result.rows)
         // const products = [];
         let products;
@@ -130,5 +161,68 @@ const deleteProduct = async ({ params, response }:{ params: {id: string}, respon
     }  
 }  
 
+// this method will update the product to be in cart
+const addToCart = async ({ params, response }:{ params: {id: string}, request: any, response: any }) => {
+    try {
+      await client.connect()
+      
+      const text = await client.queryObject(`
+      UPDATE products 
+      SET incart = '${ true }'
+      WHERE products.id = ${ params.id } 
+      RETURNING *
+      `);
 
-export { addProduct, getProducts, getProduct, deleteProduct }
+      if (!text){
+        response.body = {
+            success: false
+          }
+      }
+
+      response.body = {
+        success: true
+      }
+    } catch (err) {
+        response.status = 500
+        response.body = {
+            success: false,
+            msg: err.toString()
+        }
+    } finally {
+        await client.end()
+    }  
+}
+// this method will update the product to not in cart
+const deleteFromtCart = async ({ params, response }:{ params: {id: string}, request: any, response: any }) => {
+    try {
+      await client.connect()
+      
+      const text = await client.queryObject(`
+      UPDATE products 
+      SET incart = '${ false }'
+      WHERE products.id = ${ params.id } 
+      RETURNING *
+      `);
+
+      if (!text){
+        response.body = {
+            success: false
+          }
+      }
+
+      response.body = {
+        success: true
+      }
+    } catch (err) {
+        response.status = 500
+        response.body = {
+            success: false,
+            msg: err.toString()
+        }
+    } finally {
+        await client.end()
+    }  
+}
+
+
+export { addProduct, getProducts, getProduct, deleteProduct, addToCart, deleteFromtCart, getCartProducts }

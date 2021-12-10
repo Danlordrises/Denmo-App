@@ -1,27 +1,21 @@
 import { Router } from "https://deno.land/x/oak/mod.ts"
-import { addProduct, getProducts, getProduct, deleteProduct } from './controllers/products.ts'
+import { addProduct, getProducts, getProduct, deleteProduct, addToCart, deleteFromtCart, getCartProducts } from './controllers/products.ts'
+import { addUser, loginUser, jwtLogin, logout  } from './controllers/users.ts'
 
 const router = new Router();
 
-router.get('/', (ctx) => {
-    ctx.response.body = `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <H1>Hello World</H1>
-    </body>
-    </html>`
-})
 
 router.post('/api/products', addProduct)
       .get('/api/products', getProducts)
+      .get('/api/incart', getCartProducts)
       .get('/api/products/:id', getProduct)
       .delete('/api/products/:id', deleteProduct)
+      .post('/api/register', addUser)
+      .post('/api/login', loginUser)
+      .get('/api/user', jwtLogin)
+      .post('/api/logout', logout)
+      .patch('/api/addtocart/:id', addToCart)
+      .patch('/api/deletefromcart/:id', deleteFromtCart)
       
 
 export default router

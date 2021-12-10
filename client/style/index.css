@@ -1,11 +1,12 @@
 @import url('./reset.css');
 
 main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  width: 100vw;
   height: 100vh;
-}
+ }
 
 .page h1 {
   margin: 0;
@@ -16,7 +17,46 @@ main {
   color: #000;
 }
 
-.page h1 strong {
+.page h3 {
+  text-align: center;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 30% [col-start]);
+  grid-row-gap: 3px;
+  grid-column-gap: 3px;
+  padding: 20px 0px 20px 0px;
+}
+
+.product-card {
+  border: 1px solid #000 ;
+  border-radius: 4px;
+  /* justify-content: center; */
+
+}
+
+.product-card * {
+  text-align: center;
+  font-size: small;
+}
+
+.checkout-btn {
+  border: 1px solid black;
+  width: 15%;
+  height: 10%;
+}
+
+.cart-btn {
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.cart-btn-container { 
+  display: flex;
+  justify-content: space-evenly;
+}
+/* .page h1 strong {
   font-weight: 700;
 }
 
@@ -56,65 +96,12 @@ main {
   color: #000;
 }
 
-.counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 270px;
-  height: 48px;
-  margin: 30px auto 0;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  transition: border-color 0.15s ease-in;
-}
 
-.counter:hover {
-  border-color: #ccc;
-}
 
-.counter em {
-  display: inline-block;
-  width: 48px;
-  font-weight: 400;
-  text-align: center;
-  color: #999;
-}
 
-.counter strong {
-  display: inline-block;
-  width: 48px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.counter button {
-  display: line-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  border: 1px solid #ddd;
-  line-height: 1;
-  font-size: 12px;
-  font-family: Courier, monospace;
-  font-weight: 600;
-  color: #999;
-  transition: color 0.1s ease-in-out, border-color 0.1s ease-in-out;
-  cursor: pointer;
-}
-
-.counter button:hover {
-  color: #000;
-  border-color:#ccc;
-}
-
-.counter button + button {
-  margin-left: 9px;
-}
 
 .page .copyinfo {
   margin-top: 30px;
   font-size: 14px;
   color: #999;
-}
+} */
